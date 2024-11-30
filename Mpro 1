@@ -1,0 +1,118 @@
+<xml xmlns="https://developers.google.com/blockly/xml" is_dbot="true" collection="false">
+  <variables>
+    <variable id="%w)b[:t0iEA{Kzy$1[P9">currentPrediction</variable>
+    <variable id=";h?C)H/tmAqNwKqb=^ov">predictionList</variable>
+    <variable id="rP]rJTAeSthDOPA8=l%8">Stake</variable>
+  </variables>
+  <block type="trade_definition" id="z=4kgdlcr7U,tXY36$]P" deletable="false" x="0" y="60">
+    <statement name="TRADE_OPTIONS">
+      <block type="trade_definition_market" id="]vbpi4]x$86xV[/QFQ6z" deletable="false" movable="false">
+        <field name="MARKET_LIST">synthetic_index</field>
+        <field name="SUBMARKET_LIST">random_index</field>
+        <field name="SYMBOL_LIST">1HZ100V</field>
+        <next>
+          <block type="trade_definition_tradetype" id="{0qW{nzd[jD/$!8vT!ke" deletable="false" movable="false">
+            <field name="TRADETYPECAT_LIST">digits</field>
+            <field name="TRADETYPE_LIST">overunder</field>
+            <next>
+              <block type="trade_definition_contracttype" id="%{Xq-7FCsDW:z~0)1$UV" deletable="false" movable="false">
+                <field name="TYPE_LIST">both</field>
+                <next>
+                  <block type="trade_definition_candleinterval" id="]-51hCH90Bce~c?GF!mn" deletable="false" movable="false">
+                    <field name="CANDLEINTERVAL_LIST">60</field>
+                    <next>
+                      <block type="trade_definition_restartbuysell" id=".$y}be{/Lo([!J^?:V;3" deletable="false" movable="false">
+                        <field name="TIME_MACHINE_ENABLED">FALSE</field>
+                        <next>
+                          <block type="trade_definition_restartonerror" id="!d^WIMK-raR~)^=zk!@~" deletable="false" movable="false">
+                            <field name="RESTARTONERROR">TRUE</field>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="INITIALIZATION">
+      <block type="text_print" id="p/.,vRPU$1XGgf@o1^VV">
+        <value name="TEXT">
+          <shadow type="text" id="v~45]l*2c_(f-m=RQs@5">
+            <field name="TEXT">Initializing prediction strategy</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="lists_create_with" id="4ha4x,Fv:ImACq_]|1V_">
+            <field name="VARIABLE" id=";h?C)H/tmAqNwKqb=^ov">predictionList</field>
+            <statement name="STACK">
+              <block type="lists_statement" id="pred1"><value name="VALUE"><block type="math_number"><field name="NUM">1</field></block></value>
+              <next><block type="lists_statement" id="pred2"><value name="VALUE"><block type="math_number"><field name="NUM">2</field></block></value>
+              <next><block type="lists_statement" id="pred3"><value name="VALUE"><block type="math_number"><field name="NUM">3</field></block></value>
+              <next><block type="lists_statement" id="pred4"><value name="VALUE"><block type="math_number"><field name="NUM">4</field></block></value>
+              <next><block type="lists_statement" id="pred5"><value name="VALUE"><block type="math_number"><field name="NUM">5</field></block></value>
+              <next><block type="lists_statement" id="pred6"><value name="VALUE"><block type="math_number"><field name="NUM">6</field></block></value>
+              <next><block type="lists_statement" id="pred7"><value name="VALUE"><block type="math_number"><field name="NUM">7</field></block></value>
+              <next><block type="lists_statement" id="pred8"><value name="VALUE"><block type="math_number"><field name="NUM">8</field></block></value>
+              </next></block></next></block></next></block></next></block></next></block></next></block>
+            </statement>
+            <next>
+              <block type="variables_set" id="(rxlO-s8zdAkJ#3J3Jym">
+                <field name="VAR" id="rP]rJTAeSthDOPA8=l%8">Stake</field>
+                <value name="VALUE">
+                  <block type="math_number" id="W;;6_|zZlUKq=KQ`o?P[">
+                    <field name="NUM">4</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="SUBMARKET">
+      <block type="math_modulo" id="cyclePrediction">
+        <value name="DIVIDEND">
+          <block type="math_arithmetic" id="incrementPrediction">
+            <field name="OP">ADD</field>
+            <value name="A">
+              <block type="variables_get" id="getCurrentPrediction">
+                <field name="VAR" id="%w)b[:t0iEA{Kzy$1[P9">currentPrediction</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="incrementByOne">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DIVISOR">
+          <block type="math_number" id="predictionCount">
+            <field name="NUM">8</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="AFTERPURCHASE_STACK">
+      <block type="controls_if" id="checkTargetProfit">
+        <value name="IF0">
+          <block type="check_balance" id="checkBalance">
+            <field name="OPERATOR">>=</field>
+            <value name="VALUE">
+              <block type="math_number" id="targetProfit">
+                <field name="NUM">100</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="terminate_trade" id="terminateTrade"></block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
